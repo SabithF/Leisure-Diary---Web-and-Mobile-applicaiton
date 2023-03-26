@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./server/database/connection');
 const route = require('./server/routers/router')
+const Authroute = require('./server/routers/auth')
+
 
 const app=express();
 
@@ -34,7 +36,9 @@ app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 
 // loading routers
-app.use('/', require('./server/routes/router'));
+app.use('/api', Authroute);
+app.use('/', require('./server/routers/router'));
+
 
 
 
