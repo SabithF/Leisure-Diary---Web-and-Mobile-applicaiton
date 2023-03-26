@@ -6,7 +6,8 @@ const Schema= mongoose.Schema;
 const serviceProvideSchema = new Schema ({
     name: {
         type: String,
-         required: true
+        required: true,
+        unique: true
     },
     email: {
         type: String,
@@ -20,11 +21,14 @@ const serviceProvideSchema = new Schema ({
         type: String
     },
     password:{
-        type: String
+        type: String,
+        required: true
 
     }
 
-}, {timestamps: true});
+}, 
+// {timestamps: true}
+);
 
 // serviceProvideSchema.pre('save', async function(){
 //     try {

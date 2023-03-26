@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 const services = require('../services/render');
-// const AuthController = require('../controller/authController');
+const AuthController = require('../controller/authController');
 
 
 
@@ -13,7 +13,7 @@ route.get('/', services.loginRoute);
 
 
 
-// router.post('/register', AuthController.register)
+route.post('/register', AuthController.register)
 
 
 

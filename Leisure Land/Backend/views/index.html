@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leisure Diary</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- main screen -->
@@ -14,12 +14,12 @@
         <div class="container" id="container">
             <!-- Register form -->
              <div class="form-container register-container">
-                 <form action="#">
+                 <form action="#" id="reg-form">
                      <h1>Register Here</h1>
-                     <input type="text" placeholder="Name">
-                     <input type="email" placeholder="Email">
-                     <input type="password" placeholder="Password">
-                     <button>Register</button>
+                     <input type="text" autocomplete="off" id="username" placeholder="Username">
+                     <input type="email" autocomplete="off" id="userEmail" placeholder="Email">
+                     <input type="password" autocomplete="off" id="password" placeholder="Password">
+                     <button type="submit">Register</button>
                      <span>
                          Or use your account
                      </span>
@@ -83,7 +83,7 @@
          </div>
     </main>
     
-    
-    <script src="/assets/js/script.js"></script>
+  
+    <script src="js/script.js"></script>
 </body>
 </html>

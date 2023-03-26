@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const connectDB = require('./server/database/connection');
 const route = require('./server/routers/router')
 const Authroute = require('./server/routers/auth')
+const serProvModel = require('./server/model/serviceProvider')
+const bcrypt =require('bcryptjs');
 
 
 const app=express();
@@ -23,8 +25,8 @@ app.use(morgan('dev'));
 connectDB();
 
 // parse request to body-parser
-// app.use(bodyparser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // set view engine "ejs"/ "HTML"
@@ -34,10 +36,25 @@ app.set("view engine","ejs");
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
 app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
+app.use('/', express.static(path.join(__dirname, 'views')))
+
 
 // loading routers
-app.use('/api', Authroute);
-app.use('/', require('./server/routers/router'));
+// app.use('/api', Authroute);
+// app.use('/', require('./server/routers/router'));
+
+app.post('/api/register', async (req, res)=>{
+    // get the inputs
+    const {username, email, password: plainTextPassword}= req.body
+
+    const password = await bcrypt.hash(password, 10)
+    
+    
+
+    // serProvModel.
+    res.json({status: 'ok'})
+    console.log(req.body)
+})
 
 
 
