@@ -7,7 +7,7 @@
 }
 
 body{
-  background-image: url(/assets/img/travel2.jpg);
+  background-image: url(/img/travel2.jpg);
   background-size: cover; 
   display: flex;
   background-color: #f6f5f7;
@@ -239,7 +239,7 @@ button{
   }
 
   .overlay{
-    background-image: url('/assets/img/travel.jpg');
+    background-image: url('/img/travel.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
