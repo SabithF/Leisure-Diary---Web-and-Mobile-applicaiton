@@ -4,29 +4,30 @@ const Schema= mongoose.Schema;
 
 
 const serviceProvideSchema = new Schema ({
-    name: {
+    username: {
         type: String,
         required: true,
-        unique: true
+        
     },
     email: {
         type: String,
         unique: true,
         required: true
     },
-    address: {
-        type: String
-    },
-    phone:{
-        type: String
-    },
+    // address: {
+    //     type: String
+    // },
+    // phone:{
+    //     type: String
+    // },
     password:{
         type: String,
         required: true
 
-    }
+    },
+    
 
-}, 
+}, {collection: 'serviceProvider'}
 // {timestamps: true}
 );
 
@@ -42,5 +43,5 @@ const serviceProvideSchema = new Schema ({
 //     }
 // })
 
-const ServiceProvider = mongoose.model('ServiceProvider', serviceProvideSchema);
+const ServiceProvider = mongoose.model('serviceProvideSchema', serviceProvideSchema);
 module.exports = ServiceProvider;

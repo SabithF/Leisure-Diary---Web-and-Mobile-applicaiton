@@ -9,11 +9,11 @@ const AuthController = require('../controller/authController');
  * @description Root route
  * @method GET
  */
-route.get('/', services.loginRoute);
+// route.get('/', services.loginRoute);
 
 
 
-route.post('/register', AuthController.register)
+// route.post('/register', AuthController.register)
 
 
 
