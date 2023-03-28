@@ -1,3 +1,5 @@
+const { token } = require("morgan");
+
 const registerButton = document.getElementById("register");
 const loginButton = document.getElementById("login");
 const container = document.getElementById("container");
@@ -22,7 +24,7 @@ async function registerUser(event){
 
    const result = await fetch('/api/register', {
       method: 'POST',
-      header: {
+      headers: {
          'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -30,7 +32,47 @@ async function registerUser(event){
       })
    }).then((res)=> res.json())
 
-   console.log(result)
+   if(result.status == 'ok'){
+      alert('Success')
+  }else{
+      alert(result.error)
+  }
+ 
 
 
 }
+
+// Login
+const loginform = document.getElementById('login-form');
+loginform.addEventListener('submit', loginForm);
+
+async function loginForm(event){
+   event.preventDefault()
+   const username = document.getElementById('username-login').value
+   const password = document.getElementById('password-login').value
+
+   const loginresult = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         username, password,
+         
+      })
+   }).then((res)=> res.json())
+
+   if(loginresult.status == 'ok'){
+      console.log('Got the token:', loginresult.data)
+      localStorage.setItem('token', loginresult.data )
+      alert('Success')
+  }else{
+      alert(loginresult.error)
+  }
+ 
+
+
+}
+
+
+

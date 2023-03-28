@@ -6,6 +6,7 @@ const Schema= mongoose.Schema;
 const serviceProvideSchema = new Schema ({
     username: {
         type: String,
+        unique: true,
         required: true,
         
     },
