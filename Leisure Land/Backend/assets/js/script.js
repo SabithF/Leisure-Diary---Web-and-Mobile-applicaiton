@@ -1,4 +1,4 @@
-const { token } = require("morgan");
+
 
 const registerButton = document.getElementById("register");
 const loginButton = document.getElementById("login");
@@ -33,7 +33,9 @@ async function registerUser(event){
    }).then((res)=> res.json())
 
    if(result.status == 'ok'){
-      alert('Success')
+      alert('User created sucessfully');
+      window.location.href='http://localhost:5000'
+      
   }else{
       alert(result.error)
   }
@@ -63,9 +65,11 @@ async function loginForm(event){
    }).then((res)=> res.json())
 
    if(loginresult.status == 'ok'){
+      window.location.href='http://localhost:5000/api/dashboard'
       console.log('Got the token:', loginresult.data)
       localStorage.setItem('token', loginresult.data )
-      alert('Success')
+      // alert('Success')
+      
   }else{
       alert(loginresult.error)
   }

@@ -37,7 +37,7 @@ connectDB();
 
 
 // set view engine "ejs"/ "HTML"
-// app.set("view engine","html");
+//  app.set("view engine","ejs");
 
 // load assets
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
@@ -80,7 +80,9 @@ app.post('/api/login', async (req, res)=> {
             username: servPro.username
         }, JWT_SECRET)
         return res.json({status: 'ok', data: token})
+        // res.redirect('dashboard');
 
+        // 
     }
 
     res.json({status: 'error', error: 'Invalid username/password'});
@@ -123,6 +125,8 @@ app.post('/api/register', async (req, res)=>{
         throw error
         
     }
+
+
     
     // print the request ----------------
     // console.log(req.body);
@@ -130,6 +134,9 @@ app.post('/api/register', async (req, res)=>{
     res.json({status: 'ok'})
 })
 
+ app.get('/api/dashboard', (req, res)=>{
+res.render('dashboard.ejs')
+ })
 
 
 
