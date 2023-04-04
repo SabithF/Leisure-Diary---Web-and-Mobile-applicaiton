@@ -65,7 +65,7 @@ async function loginForm(event){
    }).then((res)=> res.json())
 
    if(loginresult.status == 'ok'){
-      window.location.href='http://localhost:5000/api/dashboard'
+      window.location.href='http://localhost:5000/dashboard'
       console.log('Got the token:', loginresult.data)
       localStorage.setItem('token', loginresult.data )
       // alert('Success')

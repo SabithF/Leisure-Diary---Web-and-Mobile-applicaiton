@@ -9,16 +9,9 @@ const AuthController = require('../controller/authController');
  * @description Root route
  * @method GET
  */
-// route.get('/', services.loginRoute);
+route.get('/dashboard/accomodation', (req, res)=>{
+    res.render('accomodation', {title: 'Accomodations- Leisure Diary'})
+ });
 
 
-
-// route.post('/register', AuthController.register)
-
-
-
-//  api
-
-
- 
  module.exports = route;

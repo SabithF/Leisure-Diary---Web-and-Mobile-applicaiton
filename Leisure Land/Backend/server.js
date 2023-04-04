@@ -1,15 +1,13 @@
 const express = require('express');
 const path =require('path');
 const morgan = require('morgan');
-// const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./server/database/connection');
-// const route = require('./server/routers/router')
-// const Authroute = require('./server/routers/auth')
 const serProvModel = require('./server/model/serviceProvider')
 const bcrypt =require('bcryptjs');
 const { response } = require('express');
 const jwt = require('jsonwebtoken')
+const session = require('express-session')
 
 
 const app=express();
@@ -20,6 +18,20 @@ const app=express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.disable('etag');
+
+app.use(
+    session({
+        secret: "My Secret Key",
+        saveUninitialized: true,
+        resave: false,
+    })
+);
+
+app.use((req, res, next)=> {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+})
 
 // Assigning a PORT
 dotenv.config({path:'config.env'});
@@ -35,9 +47,9 @@ app.use(morgan('dev'));
 // Database coonection
 connectDB();
 
+app.set('view engine', 'ejs');
 
-// set view engine "ejs"/ "HTML"
-//  app.set("view engine","ejs");
+
 
 // load assets
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
@@ -45,19 +57,6 @@ app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 app.use('/', express.static(path.join(__dirname, 'views')))
 
-
-// loading routers
-// app.use('/api', Authroute);
-// app.use('/', require('./server/routers/router'));
-
-// Change PSWD API
-// app.post('/api/change-password', (req, res)=> {
-// const {token} = req.body;
-// const serProv = jwt.verify(token, JWT_SECRET)
-
-// console.log(serProv)
-// res.json({status: 'ok'})
-// })
 
 // login API
 app.post('/api/login', async (req, res)=> {
@@ -134,9 +133,11 @@ app.post('/api/register', async (req, res)=>{
     res.json({status: 'ok'})
 })
 
- app.get('/api/dashboard', (req, res)=>{
-res.render('dashboard.ejs')
+ app.get('/dashboard', (req, res)=>{
+res.render('dashboard')
  })
+
+ app.use('', require('./server/routers/router'));
 
 
 
