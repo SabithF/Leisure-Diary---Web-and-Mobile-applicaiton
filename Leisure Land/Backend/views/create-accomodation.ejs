@@ -10,6 +10,7 @@
                     </h3>
                 </div>
                 <div class="card-body  p-2">
+                    <!-- route name -->
                     <form action="/add-accomodation" method="post" id="add-form" enctype="multipart/form-data">
 
                         <div class="mb-2">
@@ -37,8 +38,16 @@
                             <input type="text" name='availability' class="form-control form-control-sm" placeholder="Select date" required/>
                         </div>
                         <div class="mb-2">
-                            <label for="service-provider">Service Provider</label>
-                            <input type="text" name='service-provider' class="form-control form-control-sm" placeholder="Service Provider" required/>
+                            <label for="serviceProvider">Service Provider</label>
+                            <input type="text" name='serviceProvider' class="form-control form-control-sm" placeholder="Service Provider" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="category">Category</label>
+                            <input type="text" name='category' class="form-control form-control-sm" placeholder="Category" required/>
+                        </div>
+                        <div class="mb-2">
+                            <label for="phone">Phone</label>
+                            <input type="text" name='phone' class="form-control form-control-sm" placeholder="Phone" required/>
                         </div>
                         <div class="mb-2">
                             <label for="image">Select Image</label>

@@ -4,7 +4,7 @@ const Schema= mongoose.Schema;
 
 const AccomodationModel = new Schema({
     
-    derviceProvide: {
+    serviceProvider: {
         type: String,
         required: true,
     },
@@ -25,9 +25,9 @@ const AccomodationModel = new Schema({
         type: String,
         required: true,
     },
-    images: {
+    image: {
         type: String,
-        required: true,
+         required: true,
     },
     price: {
         type: String,
@@ -57,6 +57,6 @@ const AccomodationModel = new Schema({
 },{collection: 'Accomodation'}, {timestamps: true}
 );
 
-
+// Accomodation is the model here
 module.exports =mongoose.model('Accomodation', AccomodationModel);
 

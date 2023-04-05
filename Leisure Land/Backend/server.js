@@ -47,6 +47,8 @@ app.use(morgan('dev'));
 // Database coonection
 connectDB();
 
+app.use(express.static("uploads"));
+
 app.set('view engine', 'ejs');
 
 
@@ -55,7 +57,9 @@ app.set('view engine', 'ejs');
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
 app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
-app.use('/', express.static(path.join(__dirname, 'views')))
+app.use('/', express.static(path.join(__dirname, 'views')));
+
+
 
 
 // login API

@@ -15,5 +15,70 @@
     </div>
 </section>
 
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <% if (message){ %>
+                    <div class="alert alert-success alert-dismissible fade show alert-<%= message.type %>" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-lablel="close"></button>
+                    
+                <strong><%= message.message %></strong>
+                </div> <% } %>
+                    
+                    
+                 
+                <div class="table-responsive">
+
+                    <% if (accomodation != '') { %>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Short Description</th>
+                                    <th>Phone</th>
+                                    <th>Location</th>
+                                    <th>Price</th>
+                                    <th>Availability</th>
+                                    <th>Service Provider</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <% accomodation.forEach((row, index) => { %>
+                                <tr>
+                                    <td><%= index %></td>
+                                    <td><img src="<%= row.image %>" width="50" class="img-thumbnail" alt="Image Loading..."> </td>
+                                    <td><%= row.title %></td>
+                                    <td><%= row.description %></td>
+                                    <td><%= row.otherdesc %></td>
+                                    <td><%= row.phone %></td>
+                                    <td><%= row.location %></td>
+                                    <td><%= row.price %></td>
+                                    <td><%= row.availability %></td>
+                                    <td><%= row.serviceProvider %></td>
+                                    <td><a href="/edit-accomodation/<%= row.id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1 "></i></a>
+                                        <a href="/delete-accomodation/<%= row.id %>"  class=""><i class="fa-sharp fa-solid fa-trash " style="color:red"></i></a>
+                                        </td>
+                                </tr>
+                               <% }) %>
+                            </tbody>
+                        </table>
+                    <% } else {%>
+                        <h2 class="text-center text-secondary mt-3"> No services found</h2>
+
+                        <% } %>
+                    
+
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <%- include('include/_footer') %> 
