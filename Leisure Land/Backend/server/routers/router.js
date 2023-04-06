@@ -10,36 +10,47 @@ const { off } = require('../model/serviceProvider');
 
 
 // image upload
-var storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, './uploads');
-    },
-    filename: function(req, file, cb){
-        cb(null, file.fieldname+'_'+ Date.now()+'_'+file.originalname);
-    },
-});
+const storage = multer.memoryStorage();
+const upload = multer({storage});
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb){
+//         cb(null, './uploads');
+//     },
+//     filename: function(req, file, cb){
+//         cb(null, file.fieldname+'_'+ Date.now()+'_'+file.originalname);
+//     },
+// });
 
-var upload = multer({
-    storage: storage,
-}).single('image');
+// var upload = multer({
+//     storage: storage,
+//     limits:{
+//         fieldSize: 1024*1024*3,
+//     },
+// });
 
 
 // Accomdation inserting 
-route.post('/add-accomodation', upload, (req, res) =>{
+route.post('/add-accomodation', upload.single('image'), (req, res) =>{
     const accomodation = new Accomodation({
     serviceProvider:req.body.serviceProvider,
     title: req.body.title,
     description: req.body.description,
     otherdesc: req.body.otherdesc,
     location: req.body.location,
-    image: req.file.filename,
+    image: req.file.buffer,
     price: req.body.price,
     category: req.body.category,
     phone: req.body.phone,
     availabilty: req.body.availabilty,
 
+
+   
+ 
     });
 
+    
+
+    
     accomodation.save(accomodation)
     .then(data=> {
         
@@ -47,7 +58,8 @@ route.post('/add-accomodation', upload, (req, res) =>{
             type: 'Success',
             message: 'Service created successfully'
         }; res.redirect('/dashboard/accomodation');
-        // console.log(message);
+
+        
     })
     .catch(err =>{
         const error = mongooseValidationErrorHandler(err);
@@ -56,18 +68,7 @@ route.post('/add-accomodation', upload, (req, res) =>{
             message:err.message || "Error in creating"
         })
     })
-    // accomodation.save((err) =>{
-    //     if(err){
-    //         res.json({message:err.message, type:'dange'});
-    //     }else{
-    //         req.session.message= {
-    //             type: 'Success',
-    //             message: 'Service created successfully'
-    //         };
-    //         res.redirect('/dashboard/accomodation')
-        
-    //     }
-    // })
+  
 })
 
 
@@ -86,6 +87,7 @@ route.get('/dashboard/accomodation', (req, res)=>{
                 }else{
                     res.send(data)
                 }
+                
             })
             .catch(err =>{
                 res.status(500).send({message: "Error retreving service by ID"})
@@ -100,17 +102,6 @@ route.get('/dashboard/accomodation', (req, res)=>{
         })
     }
 
-
-
-    // Accomodation.find().exec((err, accomodation)=>{
-    //     if(err){
-    //         res.json({message: err.message});
-    //     }else{
-    //         res.render('accomodation', {title: 'Accomodations- Leisure Diary', accomodation: accomodation}
-    //         )}
-    // })
-
-    // 
  });
 
 //  add new accomodation

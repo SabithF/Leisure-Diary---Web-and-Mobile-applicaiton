@@ -48,23 +48,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               <% accomodation.forEach((row, index) => { %>
+                                <!-- for(var i = 0; i<users.length; i++) -->
+                               <%  for(var i = 0; i<accomodation.length; i++){ %>
                                 <tr>
-                                    <td><%= index %></td>
-                                    <td><img src="<%= row.image %>" width="50" class="img-thumbnail" alt="Image Loading..."> </td>
-                                    <td><%= row.title %></td>
-                                    <td><%= row.description %></td>
-                                    <td><%= row.otherdesc %></td>
-                                    <td><%= row.phone %></td>
-                                    <td><%= row.location %></td>
-                                    <td><%= row.price %></td>
-                                    <td><%= row.availability %></td>
-                                    <td><%= row.serviceProvider %></td>
-                                    <td><a href="/edit-accomodation/<%= row.id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1 "></i></a>
-                                        <a href="/delete-accomodation/<%= row.id %>"  class=""><i class="fa-sharp fa-solid fa-trash " style="color:red"></i></a>
+                                    <td><%= i+1 %></td>
+                                    <!-- '/uploads/' + accomodation[i].image %> -->
+                                    
+                                    <td>
+                                        <% if (accomodation.image) { %>
+                                            <img src="data:image/jpeg;base64,<%= accomodation[i].image.toString('base64') %>" width="100" />
+                                            <% } else { %>
+                                            No Image
+                                            <% } %>
+
+                                            
+
+                                    </td>
+                                    <td><%= accomodation[i].title %></td>
+                                    <td><%= accomodation[i].description %></td>
+                                    <td><%= accomodation[i].otherdesc %></td>
+                                    <td><%= accomodation[i].phone %></td>
+                                    <td><%= accomodation[i].location %></td>
+                                    <td><%= accomodation[i].price %></td>
+                                    <td><%= accomodation[i].availability %></td>
+                                    <td><%= accomodation[i].serviceProvider %></td>
+                                    <td><a href="/edit-accomodation/<%= accomodation[i].id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1 "></i></a>
+                                        <a href="/delete-accomodation/<%= accomodation[i].id %>"  class=""><i class="fa-sharp fa-solid fa-trash " style="color:red"></i></a>
                                         </td>
                                 </tr>
-                               <% }) %>
+                               <% } %>
                             </tbody>
                         </table>
                     <% } else {%>
