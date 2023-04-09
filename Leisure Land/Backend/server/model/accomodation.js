@@ -26,8 +26,9 @@ const AccomodationModel = new Schema({
         required: true,
     },
     image: {
-        type: Buffer,
-         required: true,
+        data: Buffer,
+        contentType:String,
+        
     },
     price: {
         type: String,
@@ -42,10 +43,11 @@ const AccomodationModel = new Schema({
         required: true,
     },
 
-    availabilty: {
-        type: Date,
-    },
-
+    startDate: {type: Date},
+    
+    endDate: {type: Date},
+    
+    
     created:{
         type: Date,
         required: true,

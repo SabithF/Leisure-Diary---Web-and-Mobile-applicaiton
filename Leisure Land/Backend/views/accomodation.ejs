@@ -28,7 +28,7 @@
                     
                     
                  
-                <div class="table-responsive">
+                <div class="table-responsive table">
 
                     <% if (accomodation != '') { %>
                         <table class="table table-striped">
@@ -42,7 +42,7 @@
                                     <th>Phone</th>
                                     <th>Location</th>
                                     <th>Price</th>
-                                    <th>Availability</th>
+                                    <th>Availability Range</th>
                                     <th>Service Provider</th>
                                     <th>Action</th>
                                 </tr>
@@ -56,13 +56,14 @@
                                     
                                     <td>
                                         <% if (accomodation.image) { %>
-                                            <img src="data:image/jpeg;base64,<%= accomodation[i].image.toString('base64') %>" width="100" />
+                                            
+                                            <img src="data:<%=accomodation[i].image.contentType %>;base64,<%= accomodation[i].image.data.toString('base64')%>" width="100" />
                                             <% } else { %>
                                             No Image
                                             <% } %>
 
                                             
-
+                                            <!-- /<%= accomodation[i].id %> -->
                                     </td>
                                     <td><%= accomodation[i].title %></td>
                                     <td><%= accomodation[i].description %></td>
@@ -70,10 +71,10 @@
                                     <td><%= accomodation[i].phone %></td>
                                     <td><%= accomodation[i].location %></td>
                                     <td><%= accomodation[i].price %></td>
-                                    <td><%= accomodation[i].availability %></td>
+                                    <td><%= accomodation[i].startDate %> + <%= accomodation[i].endDate %></td>
                                     <td><%= accomodation[i].serviceProvider %></td>
-                                    <td><a href="/edit-accomodation/<%= accomodation[i].id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1 "></i></a>
-                                        <a href="/delete-accomodation/<%= accomodation[i].id %>"  class=""><i class="fa-sharp fa-solid fa-trash " style="color:red"></i></a>
+                                    <td><a href="/update-accomodation/<%= accomodation[i]._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1 "></i></a>
+                                        <a href="/delete-accomodation/<%= accomodation[i]._id %>"  class=""><i class="fa-sharp fa-solid fa-trash " style="color:red"></i></a>
                                         </td>
                                 </tr>
                                <% } %>

@@ -27,16 +27,24 @@
                         </div>
                         <div class="mb-2">
                             <label for="location">Location</label>
-                            <input type="text" name='location' class="form-control form-control-sm" placeholder="Select Locaiton" required/>
+                            <input type="text" name='location' class="form-control form-control-sm" id="search_input" placeholder="Select Locaiton" required/>
                         </div>
+                    
                         <div class="mb-2">
                             <label for="price">Price</label>
                             <input type="text" name='price' class="form-control form-control-sm" placeholder="Enter Rate" required/>
                         </div>
-                        <div class="mb-2">
-                            <label for="availability">Availability</label>
-                            <input type="text" name='availability' class="form-control form-control-sm" placeholder="Select date" required/>
+                        <div class="row" id="availabilty">
+                            <div class="mb-2 col">
+                                <label for="availability">Availability- From</label>
+                                <input type="date" name='startDate' id="startDate" class="form-control form-control-sm" placeholder="Select date" required/>
+                            </div>
+                            <div class="mb-2 col">
+                                <label for="availability">To</label>
+                                <input type="date" name='endDate' id="endDate" class="form-control form-control-sm" placeholder="Select date" required/>
+                            </div>
                         </div>
+                        
                         <div class="mb-2">
                             <label for="serviceProvider">Service Provider</label>
                             <input type="text" name='serviceProvider' class="form-control form-control-sm" placeholder="Service Provider" required/>

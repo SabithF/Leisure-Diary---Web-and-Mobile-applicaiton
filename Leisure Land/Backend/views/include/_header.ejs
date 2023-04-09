@@ -11,7 +11,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/mdb.min.css" />
     <link rel="stylesheet" href="css/dashboard.css">
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Google Maps JavaScript library -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyBsKd7zSRFM9QkYa39-a_EXBSePqSaHuK8"></script>
+
+    <script>
+      var searchInput = 'search_input';
+  
+      $(document).ready(function(){
+          var autocomplete;
+          autocomplete= new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+              types: ['geocode'],
+              componentRestrictions: {
+        country: "lk"
+    }
+          });
+  
+          google.maps.event.addListener(autocomplete, 'place_changed', function(){
+              var near_place = autocomplete.getPlace();
+          })
+      })
+
+  </script>
+
 
     <style>
        /* Color of the links BEFORE scroll */

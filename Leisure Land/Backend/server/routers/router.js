@@ -7,11 +7,16 @@ const multer = require('multer');
 const mongooseValidationErrorHandler = require('mongoose-validation-error-message-handler');
 const accomodation = require('../model/accomodation');
 const { off } = require('../model/serviceProvider');
+const moment = require('moment/moment');
+const fs = require('fs');
+
+// moment(startDate).format("DD-MM-YYYY").toDate()
+// moment(endDate).format("DD-MM-YYYY").toDate()
 
 
 // image upload
 const storage = multer.memoryStorage();
-const upload = multer({storage});
+const upload = multer({storage:storage});
 // var storage = multer.diskStorage({
 //     destination: function(req, file, cb){
 //         cb(null, './uploads');
@@ -29,35 +34,40 @@ const upload = multer({storage});
 // });
 
 
-// Accomdation inserting 
-route.post('/add-accomodation', upload.single('image'), (req, res) =>{
+// Accomdation inserting Saving
+route.post('/add-accomodation', upload.single('image'), async (req, res) =>{
+
+    
+
     const accomodation = new Accomodation({
     serviceProvider:req.body.serviceProvider,
     title: req.body.title,
     description: req.body.description,
     otherdesc: req.body.otherdesc,
     location: req.body.location,
-    image: req.file.buffer,
+    image: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+    },
     price: req.body.price,
     category: req.body.category,
     phone: req.body.phone,
-    availabilty: req.body.availabilty,
+    startDate: Date(req.body.startDate),
+    endDate: Date(req.body.endDate),
 
-
-   
- 
     });
 
-    
+   
 
+    await accomodation.save(accomodation)
     
-    accomodation.save(accomodation)
     .then(data=> {
-        
         req.session.message= {
             type: 'Success',
             message: 'Service created successfully'
-        }; res.redirect('/dashboard/accomodation');
+        }; 
+        
+        res.redirect('/dashboard/accomodation');
 
         
     })
@@ -76,24 +86,25 @@ route.post('/add-accomodation', upload.single('image'), (req, res) =>{
  * @description Root route
  * @method GET
  */
-route.get('/dashboard/accomodation', (req, res)=>{
+route.get('/dashboard/accomodation', async (req, res)=>{
 
     if(req.query.id){
         const id = req.query.id;
-        Accomodation.findById(id).then(data=>
+        await Accomodation.findById(id).then(data=>
             {
                 if(!data){
                     res.status(404).send({message: "Service not Found"})
                 }else{
                     res.send(data)
                 }
-                
+            
             })
             .catch(err =>{
                 res.status(500).send({message: "Error retreving service by ID"})
             })
     }else{
         Accomodation.find().then(accomodation=>{
+       
             res.render('accomodation', {title: 'Accomodations- Leisure Diary', accomodation: accomodation});
             
         })
@@ -110,4 +121,92 @@ route.get('/create-accomodation', (req, res) =>{
 })
 
 
- module.exports = route;
+
+route.get('/update-accomodation/:id', async (req, res)=>{
+  
+    let id=req.params.id;
+    await Accomodation.findById(id, req.body)
+    .then(accomodation=>{
+        if(!accomodation){
+            res.status(404).send({message: 'Service Not Found'})
+        }else{
+            
+            // res.send(accomodation)
+            res.render('update-accomodation', {title: 'Create New Accomodation', accomodation:accomodation} )
+        }
+    })
+   })
+
+    // let new_image = "";
+
+    // if(req.file){
+    //     new_image =req.file.buffer;
+    //     try{
+    //         fs.unlinkSync('./uploads/'+req.body.old_image);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }else{
+    //     new_image=req.body.old_image;
+    // }
+
+  route.post('/update-accomodation/:id', async (req, res)=>{
+    let id=req.params.id;
+    
+
+    await Accomodation.findByIdAndUpdate(id, req.body)
+    .then(accomodation => {
+        if (!accomodation) {
+          res.status(404).send({ message: 'Cannot update the user', id });
+        } else {
+            req.session.message={
+                type: 'Success',
+                message: 'User updates Successfully',
+            };
+            console.log('Test accom:',accomodation);
+        res.send(accomodation);
+          res.redirect('/dashboard/accomodation'); 
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({ message: 'Error in updating service information' });
+      });
+  });
+
+    // }, (err, res)=>{
+    //     if(err){
+    //         res.json({message: err.message, type:'danger'})
+    //     }else{
+    //         req.session.message={
+    //             type: 'success',
+    //             message: 'Service updated Successgully!'
+    //         };
+    //         res.redirect('/dashboard/accomodation');
+    //     }
+   
+    
+
+    
+
+
+ module.exports = route;  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ //     title: req.body.title,
+ // description: req.body.description,
+ // otherdesc: req.body.otherdesc,
+ // location: req.body.location,
+ // image: {
+ //     data: req.file.old_image,
+ //     contentType: req.file.mimetype
+ // },
+ // price: req.body.price,
+ // category: req.body.category,
+ // phone: req.body.phone,
+ // startDate: Date(req.body.startDate),
+ // endDate: Date(req.body.endDate),
