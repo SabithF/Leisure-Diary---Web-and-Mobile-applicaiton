@@ -150,28 +150,71 @@ route.get('/update-accomodation/:id', async (req, res)=>{
     //     new_image=req.body.old_image;
     // }
 
-  route.post('/update-accomodation/:id', async (req, res)=>{
-    let id=req.params.id;
+  route.post('/update-accomodation/:id',  (req, res)=>{
+    if(!req.body){
+        return res.status(400).send({message: "There is no data to update"})
+    }
+    const id=req.params.id;
+    // const updatedAccomdation= 
+    Accomodation.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
+        .then(accomodation => {
+            if (!accomodation) {
+              res.status(404).send({ message: 'Cannot update the user', id });
     
-
-    await Accomodation.findByIdAndUpdate(id, req.body)
-    .then(accomodation => {
-        if (!accomodation) {
-          res.status(404).send({ message: 'Cannot update the user', id });
-        } else {
-            req.session.message={
-                type: 'Success',
-                message: 'User updates Successfully',
-            };
-            console.log('Test accom:',accomodation);
-        res.send(accomodation);
-          res.redirect('/dashboard/accomodation'); 
-        }
-      })
-      .catch((err) => {
-        res.status(500).send({ message: 'Error in updating service information' });
+            } else {
+                req.session.message={
+                    type: 'Success',
+                    message: 'User updates Successfully',
+                };
+                // res.send(accomodation)
+              res.redirect('/dashboard/accomodation'); 
+              console.log('Test accom:',accomodation);
+            }
+          })
+          .catch((err) => {
+            res.status(500).send({ message: 'Error in updating service information' });
+          });
       });
-  });
+    
+    // .then(accomodation => {
+    //     if (!accomodation) {
+    //       res.status(404).send({ message: 'Cannot update the user', id });
+
+    //     } else {
+    //         req.session.message={
+    //             type: 'Success',
+    //             message: 'User updates Successfully',
+    //         };
+    //         // res.send(accomodation)
+    //       res.render('/dashboard/accomodation', {accomodation:accomodation}); 
+    //       console.log('Test accom:',accomodation);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     res.status(500).send({ message: 'Error in updating service information' });
+    //   });
+  
+
+
+//   Accomodation.findByIdAndUpdate(id, req.body, {useFindAndModify: false})
+//     .then(accomodation => {
+//         if (!accomodation) {
+//           res.status(404).send({ message: 'Cannot update the user', id });
+
+//         } else {
+//             req.session.message={
+//                 type: 'Success',
+//                 message: 'User updates Successfully',
+//             };
+//             // res.send(accomodation)
+//           res.render('/dashboard/accomodation', {accomodation:accomodation}); 
+//           console.log('Test accom:',accomodation);
+//         }
+//       })
+//       .catch((err) => {
+//         res.status(500).send({ message: 'Error in updating service information' });
+//       });
+//   });
 
     // }, (err, res)=>{
     //     if(err){
@@ -183,7 +226,31 @@ route.get('/update-accomodation/:id', async (req, res)=>{
     //         };
     //         res.redirect('/dashboard/accomodation');
     //     }
+
+    // })
    
+//     try {
+//         const id = req.params.id;
+//         const updatedAccomodation = await Accomodation.findByIdAndUpdate(id, req.body, { new: true });
+        
+//         if (!updatedAccomodation) {
+//             res.status(404).send({ message: `Cannot update the accomodation with id ${id}` });
+//             return;
+//         }
+        
+//         req.session.message={
+//             type: 'Success',
+//             message: 'Accomodation updated successfully',
+//         };
+            
+//         res.render('dashboard/accomodation', { accomodation: updatedAccomodation });
+//         console.log('Updated accomodation:', updatedAccomodation);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({ message: 'Error in updating accomodation information' });
+//     }
+// });
+  
     
 
     
