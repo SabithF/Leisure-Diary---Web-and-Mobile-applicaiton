@@ -31,7 +31,7 @@ class _SignupState extends State<Signup> {
       // mapping the body
 
       var regBody = {
-        "username": nameController.text,
+        "name": nameController.text,
         "email": emailController.text,
         "password": passwordController.text
       };

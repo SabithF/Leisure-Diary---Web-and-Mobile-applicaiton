@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class LoginForm extends StatelessWidget {
   const LoginForm({
     super.key,
+    required this.emailController,
+    required this.passwordController,
   });
 
-  // final TextEditingController emailController;
-  // final TextEditingController passwordController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class LoginForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              // controller: emailController,
+              controller: emailController,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person_outline_outlined),
                   labelText: 'E-mail',
@@ -29,7 +31,8 @@ class LoginForm extends StatelessWidget {
               height: 8,
             ),
             TextFormField(
-              // controller: passwordController,
+              obscureText: true,
+              controller: passwordController,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.fingerprint),
                   labelText: 'Password',

@@ -7,7 +7,8 @@ const serProvModel = require('./server/model/serviceProvider')
 const bcrypt =require('bcryptjs');
 const { response } = require('express');
 const jwt = require('jsonwebtoken')
-const session = require('express-session')
+const session = require('express-session');
+const travellerModel = require('./server/model/traveller');
 
 
 const app=express();

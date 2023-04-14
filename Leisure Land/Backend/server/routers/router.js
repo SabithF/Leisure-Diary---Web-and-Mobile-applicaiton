@@ -9,6 +9,7 @@ const accomodation = require('../model/accomodation');
 const { off } = require('../model/serviceProvider');
 const moment = require('moment/moment');
 const fs = require('fs');
+const TravellerController = require('../controller/travellerController')
 
 // moment(startDate).format("DD-MM-YYYY").toDate()
 // moment(endDate).format("DD-MM-YYYY").toDate()
@@ -176,7 +177,39 @@ route.get('/update-accomodation/:id', async (req, res)=>{
           });
       });
     
-    // .then(accomodation => {
+  
+  
+// Traveller user registration API---- For Mobile App------------------------------
+ route.post('/traveller-registration', TravellerController.register);
+
+ route.post('/traveller-login', TravellerController.login);
+
+    
+
+
+ module.exports = route;  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ //     title: req.body.title,
+ // description: req.body.description,
+ // otherdesc: req.body.otherdesc,
+ // location: req.body.location,
+ // image: {
+ //     data: req.file.old_image,
+ //     contentType: req.file.mimetype
+ // },
+ // price: req.body.price,
+ // category: req.body.category,
+ // phone: req.body.phone,
+ // startDate: Date(req.body.startDate),
+ // endDate: Date(req.body.endDate),
+
+   // .then(accomodation => {
     //     if (!accomodation) {
     //       res.status(404).send({ message: 'Cannot update the user', id });
 
@@ -250,30 +283,3 @@ route.get('/update-accomodation/:id', async (req, res)=>{
 //         res.status(500).send({ message: 'Error in updating accomodation information' });
 //     }
 // });
-  
-    
-
-    
-
-
- module.exports = route;  
- 
- 
- 
- 
- 
- 
- 
- //     title: req.body.title,
- // description: req.body.description,
- // otherdesc: req.body.otherdesc,
- // location: req.body.location,
- // image: {
- //     data: req.file.old_image,
- //     contentType: req.file.mimetype
- // },
- // price: req.body.price,
- // category: req.body.category,
- // phone: req.body.phone,
- // startDate: Date(req.body.startDate),
- // endDate: Date(req.body.endDate),
