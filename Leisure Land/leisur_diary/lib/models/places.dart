@@ -46,4 +46,44 @@ List<Places> places = [
         'Katigiorgis Pelion, Greece: Katigiorgis is a small fishing place on the southern side of Pelion. Surrounded by lush greenery and low hills, Katigiorgis has delicious fish taverns and few accommodations. The beach is small but clean and gives nice view to the Aegean Sea. In a close distance from Katigiorgis, there is a horse farm that offers nice horse rides in the beautiful nature. This small beach settlement is located 68 km south east of Volos and about 10 km from Platanias. Other beaches close to Katigiorgis are Theotokos, Lyri, Vromoneri and Mourtias.',
     price: 500,
   ),
+  Places(
+    image: 'assets/places/p5.jpg',
+    title: 'Katigiorgis',
+    location: 'Pelion Katigiorgis',
+    info:
+        'Katigiorgis Pelion, Greece: Katigiorgis is a small fishing place on the southern side of Pelion. Surrounded by lush greenery and low hills, Katigiorgis has delicious fish taverns and few accommodations. The beach is small but clean and gives nice view to the Aegean Sea. In a close distance from Katigiorgis, there is a horse farm that offers nice horse rides in the beautiful nature. This small beach settlement is located 68 km south east of Volos and about 10 km from Platanias. Other beaches close to Katigiorgis are Theotokos, Lyri, Vromoneri and Mourtias.',
+    price: 500,
+  ),
+  Places(
+    image: 'assets/places/p4.png',
+    title: 'Katigiorgis',
+    location: 'Pelion Katigiorgis',
+    info:
+        'Katigiorgis Pelion, Greece: Katigiorgis is a small fishing place on the southern side of Pelion. Surrounded by lush greenery and low hills, Katigiorgis has delicious fish taverns and few accommodations. The beach is small but clean and gives nice view to the Aegean Sea. In a close distance from Katigiorgis, there is a horse farm that offers nice horse rides in the beautiful nature. This small beach settlement is located 68 km south east of Volos and about 10 km from Platanias. Other beaches close to Katigiorgis are Theotokos, Lyri, Vromoneri and Mourtias.',
+    price: 500,
+  ),
+  Places(
+    image: 'assets/places/p4.png',
+    title: 'Katigiorgis',
+    location: 'Pelion Katigiorgis',
+    info:
+        'Katigiorgis Pelion, Greece: Katigiorgis is a small fishing place on the southern side of Pelion. Surrounded by lush greenery and low hills, Katigiorgis has delicious fish taverns and few accommodations. The beach is small but clean and gives nice view to the Aegean Sea. In a close distance from Katigiorgis, there is a horse farm that offers nice horse rides in the beautiful nature. This small beach settlement is located 68 km south east of Volos and about 10 km from Platanias. Other beaches close to Katigiorgis are Theotokos, Lyri, Vromoneri and Mourtias.',
+    price: 500,
+  ),
+  Places(
+    image: 'assets/places/p4.png',
+    title: 'Katigiorgis',
+    location: 'Pelion Katigiorgis',
+    info:
+        'Katigiorgis Pelion, Greece: Katigiorgis is a small fishing place on the southern side of Pelion. Surrounded by lush greenery and low hills, Katigiorgis has delicious fish taverns and few accommodations. The beach is small but clean and gives nice view to the Aegean Sea. In a close distance from Katigiorgis, there is a horse farm that offers nice horse rides in the beautiful nature. This small beach settlement is located 68 km south east of Volos and about 10 km from Platanias. Other beaches close to Katigiorgis are Theotokos, Lyri, Vromoneri and Mourtias.',
+    price: 500,
+  ),
+  Places(
+    image: 'assets/places/p4.png',
+    title: 'Katigiorgis',
+    location: 'Pelion Katigiorgis',
+    info:
+        'Katigiorgis Pelion, Greece: Katigiorgis is a small fishing place on the southern side of Pelion. Surrounded by lush greenery and low hills, Katigiorgis has delicious fish taverns and few accommodations. The beach is small but clean and gives nice view to the Aegean Sea. In a close distance from Katigiorgis, there is a horse farm that offers nice horse rides in the beautiful nature. This small beach settlement is located 68 km south east of Volos and about 10 km from Platanias. Other beaches close to Katigiorgis are Theotokos, Lyri, Vromoneri and Mourtias.',
+    price: 500,
+  ),
 ];

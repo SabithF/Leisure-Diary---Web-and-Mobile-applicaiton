@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:travel_app_ui/constants.dart';
+import 'package:travel_app_ui/screens/profile/profile.dart';
+
+import '../../login-register/loginScreen.dart';
 
 class Searchform extends StatelessWidget {
   const Searchform({super.key});
@@ -33,7 +36,7 @@ class Searchform extends StatelessWidget {
             suffixIcon: Padding(
               padding: const EdgeInsets.only(right: 7.0, bottom: 1, top: 1),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Scaffold.of(context).openDrawer(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   shape: const RoundedRectangleBorder(

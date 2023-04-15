@@ -11,9 +11,6 @@ const moment = require('moment/moment');
 const fs = require('fs');
 const TravellerController = require('../controller/travellerController')
 
-// moment(startDate).format("DD-MM-YYYY").toDate()
-// moment(endDate).format("DD-MM-YYYY").toDate()
-
 
 // image upload
 const storage = multer.memoryStorage();
@@ -107,6 +104,7 @@ route.get('/dashboard/accomodation', async (req, res)=>{
         Accomodation.find().then(accomodation=>{
        
             res.render('accomodation', {title: 'Accomodations- Leisure Diary', accomodation: accomodation});
+            // console.log('Accomodation body',accomodation);
             
         })
         .catch(err=>{
@@ -183,6 +181,34 @@ route.get('/update-accomodation/:id', async (req, res)=>{
  route.post('/traveller-registration', TravellerController.register);
 
  route.post('/traveller-login', TravellerController.login);
+
+ route.get('/api/getAccomodations', (req, res)=>{
+    Accomodation.find().then(accomodation=>{
+       
+        res.send({accomodations:accomodation});
+        // console.log('Accomodation body',accomodation);
+        
+    })
+    // try {
+    //     if(accomodation.length >0){
+    //         res.status(200).send({
+    //             'status code': 200,
+    //             accomodation:accomodation,
+                
+    //         })
+    //         console.log(accomodation)
+    //     }else{
+    //         res.status(200).send({
+    //             'status code': 200,
+    //             'accomodationA': []
+    //         })
+    //     }
+    // } catch (error) {
+    //     throw error
+        
+    // }
+
+ })
 
     
 

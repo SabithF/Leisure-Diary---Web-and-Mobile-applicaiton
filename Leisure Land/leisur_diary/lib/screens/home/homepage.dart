@@ -7,6 +7,9 @@ import 'package:travel_app_ui/screens/home/components/specialcard.dart';
 import 'package:travel_app_ui/screens/home/components/swiper.dart';
 import 'package:travel_app_ui/utils/bottom_glass.dart';
 
+import '../profile/profile.dart';
+import 'components/drawer.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -15,6 +18,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
+      drawer: DrawerWid(),
       bottomNavigationBar: const BottomGlassBox(
         child: BottomBar(),
       ),

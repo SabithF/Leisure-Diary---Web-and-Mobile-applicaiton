@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously, avoid_print
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:travel_app_ui/screens/login-register/signUp.dart';
 import 'package:travel_app_ui/utils/consts/imageStrings.dart';
 import 'package:http/http.dart' as http;
 import '../../utils/config.dart';
@@ -45,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
         "password": passwordController.text
       };
 
-      var response = await http.post(Uri.parse(registration),
+      var response = await http.post(Uri.parse(login),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(reqBody));
 
@@ -56,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         prefs.setString('token', 'myToken');
 
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         print('Something went wrong');
       }
@@ -77,16 +75,71 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             loginHead(),
-            LoginForm(
-                emailController: emailController,
-                passwordController: passwordController),
+            Form(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.person_outline_outlined),
+                          labelText: 'E-mail',
+                          hintText: 'E-Mail',
+                          border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      controller: passwordController,
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.fingerprint),
+                          labelText: 'Password',
+                          hintText: 'Password',
+                          border: OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                              onPressed: null,
+                              icon: Icon(Icons.remove_red_eye_sharp))),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            loginUser();
+                          },
+                          child: Text(
+                            'Login'.toUpperCase(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                },
+                onPressed: () {},
                 child: Text.rich(TextSpan(
                     text: 'Don\'t have an account?',
                     style: TextStyle(
