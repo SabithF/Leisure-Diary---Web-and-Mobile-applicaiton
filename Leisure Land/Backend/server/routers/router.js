@@ -3,6 +3,7 @@ const route = express.Router();
 const services = require('../services/render');
 const AuthController = require('../controller/authController');
 const Accomodation = require('../model/accomodation');
+const Reservations = require('../model/reservation');
 const multer = require('multer');
 const mongooseValidationErrorHandler = require('mongoose-validation-error-message-handler');
 const accomodation = require('../model/accomodation');
@@ -34,9 +35,6 @@ const upload = multer({storage:storage});
 
 // Accomdation inserting Saving
 route.post('/add-accomodation', upload.single('image'), async (req, res) =>{
-
-    
-
     const accomodation = new Accomodation({
     serviceProvider:req.body.serviceProvider,
     title: req.body.title,
@@ -54,9 +52,6 @@ route.post('/add-accomodation', upload.single('image'), async (req, res) =>{
     endDate: Date(req.body.endDate),
 
     });
-
-   
-
     await accomodation.save(accomodation)
     
     .then(data=> {
@@ -77,6 +72,36 @@ route.post('/add-accomodation', upload.single('image'), async (req, res) =>{
         })
     })
   
+})
+
+//   Reservations----------------------------------------
+
+route.post('/api/Reservations', async (req,res) =>{
+    const reservation = new Reservations(req.body
+    );
+  await reservation.save(reservation)
+  .then(data=>{
+    res.redirect('/dashboard/accomodation')
+  })
+  console.log('reservation body', reservation);
+})
+
+route.get('/reservation-accomodation', (req, res)=>{
+    Reservations.find().then(reservation=>{
+       
+        res.render('reservationsPage', {title: 'Reservations- Leisure Diary', reservation: reservation});
+        // console.log('Accomodation body',accomodation);
+        
+    })
+
+})
+
+route.post('/delete-reservation/:id', (req, res)=>{
+    const id = req.params.id;
+    Reservations.findByIdAndDelete(id).then(reservation=>{
+        res.redirect('/reservation-accomodation');
+    })
+
 })
 
 
@@ -121,7 +146,7 @@ route.get('/create-accomodation', (req, res) =>{
 
 
 
-route.get('/update-accomodation/:id', async (req, res)=>{
+route.post('/update-accomodation/:id', async (req, res)=>{
   
     let id=req.params.id;
     await Accomodation.findById(id, req.body)
@@ -135,6 +160,16 @@ route.get('/update-accomodation/:id', async (req, res)=>{
         }
     })
    })
+
+
+//Delete accomodation
+route.post('/delete-accomodation/:id', (req, res)=>{
+    const id = req.params.id;
+    Accomodation.findByIdAndDelete(id).then(accomodation=>{
+        res.redirect('/dashboard/accomodation');
+    })
+
+})   
 
     // let new_image = "";
 
@@ -182,39 +217,95 @@ route.get('/update-accomodation/:id', async (req, res)=>{
 
  route.post('/traveller-login', TravellerController.login);
 
+//  Accomodation API
  route.get('/api/getAccomodations', (req, res)=>{
     Accomodation.find().then(accomodation=>{
        
         res.send({accomodations:accomodation});
-        // console.log('Accomodation body',accomodation);
+        
         
     })
-    // try {
-    //     if(accomodation.length >0){
-    //         res.status(200).send({
-    //             'status code': 200,
-    //             accomodation:accomodation,
-                
-    //         })
-    //         console.log(accomodation)
-    //     }else{
-    //         res.status(200).send({
-    //             'status code': 200,
-    //             'accomodationA': []
-    //         })
-    //     }
-    // } catch (error) {
-    //     throw error
-        
-    // }
+})
+    
 
- })
+
+
+    
+
+
+
+
 
     
 
 
  module.exports = route;  
  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // route.get('/delete-accomodation/:id',  (req, res, next)=>{
+   
+//     Accomodation.findByIdAndDelete({_id:req.params.id}, (err, docs)=>{
+//         console.log('IDDDDDDD',_id);
+//         if(err){
+//             console.log("Something went wrong in delete");
+//             next(err)
+//         }else{
+//             console.log('Deleted');
+//             req.session.message={
+//                 type: 'info',
+//                 message: 'User deleted successfully!'
+//             }
+//             res.redirect('/dashboard/accomodation');
+//         }
+//     })
+//     // .then(req.session.message={
+//     //     type: 'info',
+//     //     message: 'User deleted successfully!'
+//     // });
+//     // res.redirect('/dashboard/accomodation');
+// })
  
  
  

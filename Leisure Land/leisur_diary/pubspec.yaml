@@ -43,6 +43,13 @@ dependencies:
   shared_preferences: ^2.1.0
   jwt_decoder: ^2.0.1
   google_fonts: ^4.0.3
+  pdf: ^3.10.1
+  path_provider: ^2.0.5
+  dio: ^4.0.0
+  printing: ^5.10.3
+  permission_handler: ^10.2.0
+  
+
 
 dev_dependencies:
   flutter_test:

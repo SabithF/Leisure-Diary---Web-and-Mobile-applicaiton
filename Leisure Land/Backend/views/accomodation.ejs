@@ -44,7 +44,8 @@
                                     <th>Price</th>
                                     <th>Availability Range</th>
                                     <th>Service Provider</th>
-                                    <th>Action</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,8 +74,19 @@
                                     <td><%= accomodation[i].price %></td>
                                     <td><%= accomodation[i].startDate %> + <%= accomodation[i].endDate %></td>
                                     <td><%= accomodation[i].serviceProvider %></td>
-                                    <td><a href="/update-accomodation/<%= accomodation[i]._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1 "></i></a>
-                                        <a href="/delete-accomodation/<%= accomodation[i]._id %>"  class=""><i class="fa-sharp fa-solid fa-trash " style="color:red"></i></a>
+                                    <td>
+                                        <form method="POST" action="/update-accomodation/<%= accomodation[i]._id%>?_method=UPDATE">
+                                            <button type="submit"><i class="fas fa-edit fa-lg mx-1 btn"></i></button>
+                                            
+                                          </form>
+                                        </td>
+                        
+                                        <td>
+                                        <form method="POST" action="/delete-accomodation/<%= accomodation[i]._id %>?_method=DELETE">
+                                            <button type="submit"> <i class="fa-sharp fa-solid fa-trash btn" style="color:red"></i></button>
+                                           
+                                          </form>
+                                        
                                         </td>
                                 </tr>
                                <% } %>
