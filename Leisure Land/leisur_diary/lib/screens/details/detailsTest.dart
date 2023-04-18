@@ -104,7 +104,7 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
                                   widget.accomodation.title.toString(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25,
+                                    fontSize: 18,
                                     color: primaryColor,
                                   ),
                                 ),
@@ -161,7 +161,7 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
                         ),
                         const SizedBox(height: 30),
                         Text(
-                          widget.places.info,
+                          widget.accomodation.description.toString(),
                           style: TextStyle(
                             color: greyColor,
                             fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Rs.${widget.accomodation.title}',
+                        'Rs.${widget.accomodation.price}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
@@ -212,7 +212,7 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
                   MaterialButton(
                     onPressed: () async {
                       final reservation = Reservation(
-                        username: "Username",
+                        username: "Hash",
                         phone: widget.accomodation.phone.toString(),
                         title: widget.accomodation.title.toString(),
                         price: widget.accomodation.price.toString(),
@@ -282,7 +282,18 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Reservation successful"),
+          title: Column(children: const [
+            Text("Reservation successful"),
+            SizedBox(
+              width: 8.0,
+              height: 8.0,
+            ),
+            Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 100.0,
+            ),
+          ]),
           content: Text(
               "Your reservation has been confirmed. Do you want to download the receipt?"),
           actions: <Widget>[

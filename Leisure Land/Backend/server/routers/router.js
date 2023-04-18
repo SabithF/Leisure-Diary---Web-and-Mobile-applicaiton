@@ -4,13 +4,18 @@ const services = require('../services/render');
 const AuthController = require('../controller/authController');
 const Accomodation = require('../model/accomodation');
 const Reservations = require('../model/reservation');
+const Transpotation = require('../model/transport');
+const LeisureActivity = require('../model/leisure');
+const FoodModel = require('../model/food');
 const multer = require('multer');
 const mongooseValidationErrorHandler = require('mongoose-validation-error-message-handler');
 const accomodation = require('../model/accomodation');
 const { off } = require('../model/serviceProvider');
 const moment = require('moment/moment');
 const fs = require('fs');
-const TravellerController = require('../controller/travellerController')
+const TravellerController = require('../controller/travellerController');
+const leisure = require('../model/leisure');
+const food = require('../model/food');
 
 
 // image upload
@@ -31,6 +36,129 @@ const upload = multer({storage:storage});
 //         fieldSize: 1024*1024*3,
 //     },
 // });
+/**
+ * @description Root route
+ * @method GET
+ */
+route.get('/dashboard/accomodation', async (req, res)=>{
+
+    if(req.query.id){
+        const id = req.query.id;
+        await Accomodation.findById(id).then(data=>
+            {
+                if(!data){
+                    res.status(404).send({message: "Service not Found"})
+                }else{
+                    res.send(data)
+                }
+            
+            })
+            .catch(err =>{
+                res.status(500).send({message: "Error retreving service by ID"})
+            })
+    }else{
+        Accomodation.find().then(accomodation=>{
+       
+            res.render('accomodation', {title: 'Accomodations- Leisure Diary', accomodation: accomodation});
+            // console.log('Accomodation body',accomodation);
+            
+        })
+        .catch(err=>{
+            res.status(500).send({message:err.message || "Error on getting all the data"});
+        })
+    }
+
+ });
+route.get('/dashboard/transpotation', async (req, res)=>{
+
+    if(req.query.id){
+        const id = req.query.id;
+        await Transpotation.findById(id).then(data=>
+            {
+                if(!data){
+                    res.status(404).send({message: "Service not Found"})
+                }else{
+                    res.send(data)
+                }
+            
+            })
+            .catch(err =>{
+                res.status(500).send({message: "Error retreving service by ID"})
+            })
+    }else{
+        Transpotation.find().then(transpotaion=>{
+       
+            res.render('transpotaion', {title: 'Transpotation- Leisure Diary', transpotaion: transpotaion});
+            // console.log('Accomodation body',accomodation);
+            
+        })
+        .catch(err=>{
+            res.status(500).send({message:err.message || "Error on getting all the data"});
+        })
+    }
+
+ });
+route.get('/dashboard/leisureactivity', async (req, res)=>{
+
+    if(req.query.id){
+        const id = req.query.id;
+        await LeisureActivity.findById(id).then(data=>
+            {
+                if(!data){
+                    res.status(404).send({message: "Service not Found"})
+                }else{
+                    res.send(data)
+                }
+            
+            })
+            .catch(err =>{
+                res.status(500).send({message: "Error retreving service by ID"})
+            })
+    }else{
+        LeisureActivity.find().then(leisure=>{
+       
+            res.render('leisureactivity', {title: 'Leisure Activities- Leisure Diary', leisure: leisure});
+            // console.log('Accomodation body',accomodation);
+            
+        })
+        .catch(err=>{
+            res.status(500).send({message:err.message || "Error on getting all the data"});
+        })
+    }
+
+ });
+route.get('/dashboard/food', async (req, res)=>{
+
+    if(req.query.id){
+        const id = req.query.id;
+        await FoodModel.findById(id).then(data=>
+            {
+                if(!data){
+                    res.status(404).send({message: "Service not Found"})
+                }else{
+                    res.send(data)
+                }
+            
+            })
+            .catch(err =>{
+                res.status(500).send({message: "Error retreving service by ID"})
+            })
+    }else{
+        FoodModel.find().then(food=>{
+       
+            res.render('food', {title: 'Accomodations- Food', food: food});
+            // console.log('Accomodation body',accomodation);
+            
+        })
+        .catch(err=>{
+            res.status(500).send({message:err.message || "Error on getting all the data"});
+        })
+    }
+
+ });
+
+
+
 
 
 // Accomdation inserting Saving
@@ -74,6 +202,117 @@ route.post('/add-accomodation', upload.single('image'), async (req, res) =>{
   
 })
 
+// Creating transpotation services
+route.post('/add-transpotaion', upload.single('image'), async (req, res) =>{
+    const transpotaion = new Transpotation({
+    title: req.body.title,
+    description: req.body.description,
+    otherdesc:req.body.otherdesc,
+    image: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+    },
+    price: req.body.price,
+    vehicletype: req.body.vehicletype,
+    phone: req.body.phone,
+    
+    });
+    await transpotaion.save(transpotaion)
+    
+    .then(data=> {
+        req.session.message= {
+            type: 'Success',
+            message: 'Service created successfully'
+        }; 
+        
+        res.redirect('/dashboard/transport');
+
+        
+    })
+    .catch(err =>{
+        const error = mongooseValidationErrorHandler(err);
+        console.log(error);
+        res.status(500).send({
+            message:err.message || "Error in creating"
+        })
+    })
+  
+})
+
+// Creating Leisure activity services
+route.post('/add-leisureactivity', upload.single('image'), async (req, res) =>{
+    const leisure = new LeisureActivity({
+    title: req.body.title,
+    description: req.body.description,
+    image: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+    },
+    location: req.body.location,
+    price: req.body.price,
+    phone: req.body.phone,
+   
+    
+    });
+    await leisure.save(leisure)
+    
+    .then(data=> {
+        req.session.message= {
+            type: 'Success',
+            message: 'Service created successfully'
+        }; 
+        
+        res.redirect('/dashboard/leisureactivity');
+
+        
+    })
+    .catch(err =>{
+        const error = mongooseValidationErrorHandler(err);
+        console.log(error);
+        res.status(500).send({
+            message:err.message || "Error in creating"
+        })
+    })
+  
+})
+
+// Creating Leisure activity services
+route.post('/add-food', upload.single('image'), async (req, res) =>{
+    const food = new FoodModel({
+    title: req.body.title,
+    description: req.body.description,
+    image: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+    },
+    price: req.body.price,
+    phone: req.body.phone,
+    location: req.body.location,
+    
+    });
+    await food.save(food)
+    
+    .then(data=> {
+        req.session.message= {
+            type: 'Success',
+            message: 'Service created successfully'
+        }; 
+        
+        res.redirect('/dashboard/food');
+
+        
+    })
+    .catch(err =>{
+        const error = mongooseValidationErrorHandler(err);
+        console.log(error);
+        res.status(500).send({
+            message:err.message || "Error in creating"
+        })
+    })
+  
+})
+
+
 //   Reservations----------------------------------------
 
 route.post('/api/Reservations', async (req,res) =>{
@@ -105,43 +344,20 @@ route.post('/delete-reservation/:id', (req, res)=>{
 })
 
 
-/**
- * @description Root route
- * @method GET
- */
-route.get('/dashboard/accomodation', async (req, res)=>{
 
-    if(req.query.id){
-        const id = req.query.id;
-        await Accomodation.findById(id).then(data=>
-            {
-                if(!data){
-                    res.status(404).send({message: "Service not Found"})
-                }else{
-                    res.send(data)
-                }
-            
-            })
-            .catch(err =>{
-                res.status(500).send({message: "Error retreving service by ID"})
-            })
-    }else{
-        Accomodation.find().then(accomodation=>{
-       
-            res.render('accomodation', {title: 'Accomodations- Leisure Diary', accomodation: accomodation});
-            // console.log('Accomodation body',accomodation);
-            
-        })
-        .catch(err=>{
-            res.status(500).send({message:err.message || "Error on getting all the data"});
-        })
-    }
-
- });
 
 //  add new accomodation
 route.get('/create-accomodation', (req, res) =>{
     res.render('create-accomodation', {title: 'Create New Accomodation'} )
+})
+route.get('/create-transport', (req, res) =>{
+    res.render('create-transport', {title: 'Create New Transportation'} )
+})
+route.get('/create-leisureactivity', (req, res) =>{
+    res.render('create-leisureactivity', {title: 'Create New Leisure Activity'} )
+})
+route.get('/create-food', (req, res) =>{
+    res.render('create-food', {title: 'Create New Food'} )
 })
 
 
@@ -149,7 +365,7 @@ route.get('/create-accomodation', (req, res) =>{
 route.post('/update-accomodation/:id', async (req, res)=>{
   
     let id=req.params.id;
-    await Accomodation.findById(id, req.body)
+    await Accomodation.findByIdAndUpdate(id, req.body)
     .then(accomodation=>{
         if(!accomodation){
             res.status(404).send({message: 'Service Not Found'})
@@ -162,7 +378,7 @@ route.post('/update-accomodation/:id', async (req, res)=>{
    })
 
 
-//Delete accomodation
+//Delete Routes
 route.post('/delete-accomodation/:id', (req, res)=>{
     const id = req.params.id;
     Accomodation.findByIdAndDelete(id).then(accomodation=>{
@@ -170,19 +386,28 @@ route.post('/delete-accomodation/:id', (req, res)=>{
     })
 
 })   
+route.post('/delete-transpotaion/:id', (req, res)=>{
+    const id = req.params.id;
+    Transpotation.findByIdAndDelete(id).then(transpotaion=>{
+        res.redirect('/dashboard/transpotation');
+    })
 
-    // let new_image = "";
+})   
+route.post('/delete-food/:id', (req, res)=>{
+    const id = req.params.id;
+    FoodModel.findByIdAndDelete(id).then(food=>{
+        res.redirect('/dashboard/food');
+    })
 
-    // if(req.file){
-    //     new_image =req.file.buffer;
-    //     try{
-    //         fs.unlinkSync('./uploads/'+req.body.old_image);
-    //     }catch(err){
-    //         console.log(err);
-    //     }
-    // }else{
-    //     new_image=req.body.old_image;
-    // }
+})   
+route.post('/delete-leisure/:id', (req, res)=>{
+    const id = req.params.id;
+    LeisureActivity.findByIdAndDelete(id).then(leisure=>{
+        res.redirect('/dashboard/leisureactivity');
+    })
+
+})   
+
 
   route.post('/update-accomodation/:id',  (req, res)=>{
     if(!req.body){

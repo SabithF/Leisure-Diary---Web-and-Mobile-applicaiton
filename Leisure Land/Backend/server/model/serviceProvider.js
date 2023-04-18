@@ -15,12 +15,7 @@ const serviceProvideSchema = new Schema ({
         unique: true,
         required: true
     },
-    // address: {
-    //     type: String
-    // },
-    // phone:{
-    //     type: String
-    // },
+    
     password:{
         type: String,
         required: true

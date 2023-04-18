@@ -93,7 +93,7 @@ class _SwipeCardState extends State<SwipeCard> {
                   children: [
                     RichText(
                       text: TextSpan(
-                        text: '\$${places[index].price}\\',
+                        text: '\Rs${places[index].price}\\',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

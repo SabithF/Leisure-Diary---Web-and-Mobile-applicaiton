@@ -7,12 +7,11 @@
             </div>
         </div>
     
-    </div> <div class="createnew-btn" >
-        <div class="box-nav d-flex justify-between">
-            <a href="/create-accomodation" class="border-shadow">
-                <span class="text-gradient">Create New <i class="fa-solid fa-user"></i></span>
-            </a>
-    </div>
+    
+    <div class="createnew-btn" >
+        <a class="btn btn-primary" href="/create-accomodation" role="button">Create New<span class="text-gradient"> <i class="fa-solid fa-user"></i></span></a>
+        
+</div> 
 </section>
 
 <section>
@@ -60,7 +59,7 @@
                                             
                                             <img src="data:<%=accomodation[i].image.contentType %>;base64,<%= accomodation[i].image.data.toString('base64')%>" width="100" />
                                             <% } else { %>
-                                            No Image
+                                            Uploaded
                                             <% } %>
 
                                             

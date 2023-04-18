@@ -114,7 +114,7 @@ class ServiceCardState extends State<ServiceCard> {
                                                   RichText(
                                                     text: TextSpan(
                                                       text:
-                                                          '\$${aData[index].title}\\',
+                                                          '${aData[index].title}',
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -199,18 +199,18 @@ class ServiceCardState extends State<ServiceCard> {
                                                       MediaQuery.of(context)
                                                               .size
                                                               .width /
-                                                          3.3,
+                                                          4.4,
                                                       MediaQuery.of(context)
                                                               .size
                                                               .height /
-                                                          2.5,
+                                                          3.5,
                                                     ),
                                                   ),
                                                 ),
                                                 child: Text(
                                                   'Take a look',
                                                   style: TextStyle(
-                                                    fontSize: 13,
+                                                    fontSize: 10,
                                                     color: primaryColor,
                                                     fontWeight: FontWeight.bold,
                                                   ),

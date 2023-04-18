@@ -58,6 +58,19 @@ class DrawerWid extends StatelessWidget {
             );
           },
         ),
+        ListTile(
+          title: const Text('Logout',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w900,
+                color: Colors.red,
+              )),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const TestPage()),
+            );
+          },
+        ),
       ],
     );
   }

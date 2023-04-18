@@ -60,8 +60,13 @@ app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 app.use('/', express.static(path.join(__dirname, 'views')));
 
-app.use('/uploads', express.static(path.resolve(__dirname, "uploads")));
+app.use('', require('./server/routers/router'));
 
+app.get('/dashboard', (req, res)=>{
+    res.render('dashboard')
+     })
+
+ app.use('/uploads', express.static(path.resolve(__dirname, "uploads")));
 
 
 // login API
@@ -131,20 +136,15 @@ app.post('/api/register', async (req, res)=>{
         
     }
 
-
-    
-    // print the request ----------------
-    // console.log(req.body);
-    // serProvModel.
     res.json({status: 'ok'})
 })
 
- app.get('/dashboard', (req, res)=>{
-res.render('dashboard')
- })
+ 
 
- app.use('', require('./server/routers/router'));
 
 
 
 app.listen(PORT, ()=> {console.log('Server is running on', PORT)})
+
+
+

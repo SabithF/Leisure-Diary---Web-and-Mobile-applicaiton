@@ -117,7 +117,7 @@ SizedBox glassBoxx(BuildContext context, int index) {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: '\$${specialoffers[index].price}\\',
+                      text: '\Rs${specialoffers[index].price}\\',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

@@ -39,12 +39,11 @@ List<SpecialOffers> specialoffers = [
     price: 320,
   ),
   SpecialOffers(
-    image: 'assets/places/p1.png',
+    image: 'assets/places/p1.jpg',
     title: 'Fakistra',
     location: 'Fakistra Greece',
     info:
         'Fakistra Beach Pelion: Fakistra is a lovely turquoise bay with soft sand and some rocky spots. This wonderful place is surrounded by huge cliffs with dense vegetation and boasts an exotic and quite wild scenery. An interesting fact is that some scenes from the Hollywood movie Mamma Mia! were filmed here back in 2008.',
     price: 350,
   ),
-  
 ];
