@@ -212,7 +212,7 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
                   MaterialButton(
                     onPressed: () async {
                       final reservation = Reservation(
-                        username: "Hash",
+                        username: "John Cena",
                         phone: widget.accomodation.phone.toString(),
                         title: widget.accomodation.title.toString(),
                         price: widget.accomodation.price.toString(),
@@ -344,6 +344,17 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
             ]));
       },
     ));
+
+    Future<void> openFile(File file) async {
+      try {
+        final bytes = await file.readAsBytes();
+        await Printing.sharePdf(
+            bytes: await pdf.save(), filename: 'invoice.pdf');
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+
     // final bytes = await pdf.save();
     // final directory = await getApplicationDocumentsDirectory();
     // final file = File('${directory.path}/receipt.pdf');
@@ -354,15 +365,6 @@ class _TestDetailsPageState extends State<TestDetailsPage> {
     // final file = File('${output.path}/reservation.pdf');
     // await file.writeAsBytes(await pdf.save());
     // await openFile(file);
-    Future<void> openFile(File file) async {
-      try {
-        final bytes = await file.readAsBytes();
-        await Printing.sharePdf(
-            bytes: await pdf.save(), filename: 'invoice.pdf');
-      } catch (e) {
-        print(e.toString());
-      }
-    }
 
     //
 

@@ -25,6 +25,10 @@ class Accomodation {
       this.phone,
       this.startDate,
       this.endDate});
+}
+
+
+
 
   // factory Accomodation.fromJson(Map<String, dynamic> json) {
   //   return Accomodation(
@@ -52,4 +56,3 @@ class Accomodation {
 // required
 // required
 // required
-}

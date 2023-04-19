@@ -225,7 +225,7 @@ route.post('/add-transpotaion', upload.single('image'), async (req, res) =>{
             message: 'Service created successfully'
         }; 
         
-        res.redirect('/dashboard/transport');
+        res.redirect('/dashboard/transpotation');
 
         
     })

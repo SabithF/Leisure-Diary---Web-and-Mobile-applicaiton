@@ -21,6 +21,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr class="table-primary">
+                                    <th>Status</th>
                                     <th>Name</th>
                                     <th>Service</th>
                                     <th>Amount</th>
@@ -33,6 +34,7 @@
                             <tbody >
                                 <% reservation.forEach(reservation => { %>
                                     <tr>
+                                        <td><a class="btn btn-success m-3" href="#" role="button">Booked<span class="text-gradient"></td>
                                         <td><%= reservation.username %></td>
                                         <td><%= reservation.title %></td>
                                         <td><%= reservation.price %></td>

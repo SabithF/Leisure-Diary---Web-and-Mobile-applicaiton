@@ -9,7 +9,7 @@
     
     
     <div class="createnew-btn" >
-        <a class="btn btn-primary" href="/create-leisureactivity" role="button">Create New<span class="text-gradient"> <i class="fa-solid fa-user"></i></span></a>
+        <a class="btn btn-primary m-3" href="/create-leisureactivity" role="button">Create New<span class="text-gradient"> <i class="fa-solid fa-user"></i></span></a>
         
 </div> 
 </section>
@@ -34,11 +34,12 @@
                             <thead>
                                 <tr class="table-primary">
                                     <th>ID</th>
+                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
-                                    <th>Other Description</th>
+                                    
                                     <th>Phone</th>
-                                    <th>Vehicle Type</th>
+                                    
                                     <th>Price</th>
                                      
                                     <th>Edit</th>
@@ -65,10 +66,11 @@
                                     </td>
                                     <td><%= leisure[i].title %></td>
                                     <td><%= leisure[i].description %></td>
-                                    <td><%= leisure[i].otherdesc %></td>
                                     <td><%= leisure[i].phone %></td>
-                                    <td><%= leisure[i].vehicletype %></td>
                                     <td><%= leisure[i].price %></td>
+                        
+                                    
+                                    
                                     
                                     <td>
                                         <form method="POST" action="/update-leisure/<%= leisure[i]._id%>?_method=UPDATE">

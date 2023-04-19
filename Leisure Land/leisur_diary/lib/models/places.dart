@@ -39,7 +39,7 @@ List<Places> places = [
     price: 80000,
   ),
   Places(
-    image: 'assets/places/p8.png',
+    image: 'assets/places/98.jpg',
     title: 'Unawatuna',
     location: 'Galle Sri Lanka',
     info:
@@ -47,7 +47,7 @@ List<Places> places = [
     price: 25000,
   ),
   Places(
-    image: 'assets/places/p2.png',
+    image: 'assets/places/98.jpg',
     title: 'Arugambay',
     location: 'Arugambay',
     info:

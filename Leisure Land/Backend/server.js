@@ -105,19 +105,19 @@ app.post('/api/register', async (req, res)=>{
 
     // validation error- USERNAME
     if(!username || typeof username != 'string'){
-        return res.json({status: 'error', error: 'Invalid username'})
+        return res.json({status: 'error', error: 'Invalid username'}).statusCode(400)
     }
     // validation error- EMAIL
     if(!email || typeof email != 'string'){
-        return res.json({status: 'error', error: 'Invalid email'})
+        return res.json({status: 'error', error: 'Invalid email'}).statusCode(400)
     }
     // validation error- PASSWORD
     if(!plainTextPassword || typeof plainTextPassword != 'string'){
-        return res.json({status: 'error', error: 'Invalid password'})
+        return res.json({status: 'error', error: 'Invalid password'}).statusCode(400)
     }
 
     if(plainTextPassword.length <5){
-        return res.json({status: 'error', error: 'Password should be at least more than 6 Characters'})
+        return res.json({status: 'error', error: 'Password should be at least more than 6 Characters'}).statusCode(400)
     }
 
     const password = await bcrypt.hash(plainTextPassword, 10)
@@ -129,8 +129,8 @@ app.post('/api/register', async (req, res)=>{
         console.log('Service provider created successfully',response)
     } catch (error) {
         // 11000 duplicate key error 
-        if(error.code == 11000){
-            return res.json({status: 'error', error: 'User Name / Email already in use'})
+        if(error.code == 400){
+            return res.json({status: 'error', error: 'User Name / Email already in use'}).statusCode(400)
         }
         throw error
         
@@ -145,6 +145,8 @@ app.post('/api/register', async (req, res)=>{
 
 
 app.listen(PORT, ()=> {console.log('Server is running on', PORT)})
+
+module.exports = app;
 
 
 
