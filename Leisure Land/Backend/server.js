@@ -1,15 +1,14 @@
 const express = require('express');
 const path =require('path');
 const morgan = require('morgan');
-// const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./server/database/connection');
-// const route = require('./server/routers/router')
-// const Authroute = require('./server/routers/auth')
 const serProvModel = require('./server/model/serviceProvider')
 const bcrypt =require('bcryptjs');
 const { response } = require('express');
 const jwt = require('jsonwebtoken')
+const session = require('express-session');
+const travellerModel = require('./server/model/traveller');
 
 
 const app=express();
@@ -20,6 +19,20 @@ const app=express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.disable('etag');
+
+app.use(
+    session({
+        secret: "My Secret Key",
+        saveUninitialized: true,
+        resave: false,
+    })
+);
+
+app.use((req, res, next)=> {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
+})
 
 // Assigning a PORT
 dotenv.config({path:'config.env'});
@@ -35,29 +48,26 @@ app.use(morgan('dev'));
 // Database coonection
 connectDB();
 
+// app.use(express.static("uploads"));
 
-// set view engine "ejs"/ "HTML"
-//  app.set("view engine","ejs");
+app.set('view engine', 'ejs');
+
+
 
 // load assets
 app.use('/css', express.static(path.resolve(__dirname, "assets/css")));
 app.use('/img', express.static(path.resolve(__dirname, "assets/img")));
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
-app.use('/', express.static(path.join(__dirname, 'views')))
+app.use('/', express.static(path.join(__dirname, 'views')));
 
+app.use('', require('./server/routers/router'));
 
-// loading routers
-// app.use('/api', Authroute);
-// app.use('/', require('./server/routers/router'));
+app.get('/dashboard', (req, res)=>{
+    res.render('dashboard')
+     })
 
-// Change PSWD API
-// app.post('/api/change-password', (req, res)=> {
-// const {token} = req.body;
-// const serProv = jwt.verify(token, JWT_SECRET)
+ app.use('/uploads', express.static(path.resolve(__dirname, "uploads")));
 
-// console.log(serProv)
-// res.json({status: 'ok'})
-// })
 
 // login API
 app.post('/api/login', async (req, res)=> {
@@ -95,19 +105,19 @@ app.post('/api/register', async (req, res)=>{
 
     // validation error- USERNAME
     if(!username || typeof username != 'string'){
-        return res.json({status: 'error', error: 'Invalid username'})
+        return res.json({status: 'error', error: 'Invalid username'}).statusCode(400)
     }
     // validation error- EMAIL
     if(!email || typeof email != 'string'){
-        return res.json({status: 'error', error: 'Invalid email'})
+        return res.json({status: 'error', error: 'Invalid email'}).statusCode(400)
     }
     // validation error- PASSWORD
     if(!plainTextPassword || typeof plainTextPassword != 'string'){
-        return res.json({status: 'error', error: 'Invalid password'})
+        return res.json({status: 'error', error: 'Invalid password'}).statusCode(400)
     }
 
     if(plainTextPassword.length <5){
-        return res.json({status: 'error', error: 'Password should be at least more than 6 Characters'})
+        return res.json({status: 'error', error: 'Password should be at least more than 6 Characters'}).statusCode(400)
     }
 
     const password = await bcrypt.hash(plainTextPassword, 10)
@@ -119,25 +129,24 @@ app.post('/api/register', async (req, res)=>{
         console.log('Service provider created successfully',response)
     } catch (error) {
         // 11000 duplicate key error 
-        if(error.code == 11000){
-            return res.json({status: 'error', error: 'User Name / Email already in use'})
+        if(error.code == 400){
+            return res.json({status: 'error', error: 'User Name / Email already in use'}).statusCode(400)
         }
         throw error
         
     }
 
-
-    
-    // print the request ----------------
-    // console.log(req.body);
-    // serProvModel.
     res.json({status: 'ok'})
 })
 
- app.get('/api/dashboard', (req, res)=>{
-res.render('dashboard.ejs')
- })
+ 
+
 
 
 
 app.listen(PORT, ()=> {console.log('Server is running on', PORT)})
+
+module.exports = app;
+
+
+

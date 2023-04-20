@@ -1,0 +1,79 @@
+<%- include('include/_header') %>
+<section style="align-items: center;">
+    <div class="container heading-container" >
+        <div class="row">
+            <div class="column">
+                <h1>Reservations</h1>
+            </div>
+        </div>
+
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                
+                 
+                <div class="table-responsive table">
+
+                   
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>Service</th>
+                                    <th>Amount</th>
+                                    <th>Contact Number</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <% reservation.forEach(reservation => { %>
+                                    <tr>
+                                        <td><a class="btn btn-success m-3" href="#" role="button">Booked<span class="text-gradient"></td>
+                                        <td><%= reservation.username %></td>
+                                        <td><%= reservation.title %></td>
+                                        <td><%= reservation.price %></td>
+                                        <td><%= reservation.phone %></td>
+                                        <td><%= reservation.date %></td>
+                                        <td>
+                                            <form method="POST" action="/delete-reservation/<%= reservation._id %>?_method=DELETE">
+                                              <button type="submit">Cancel</button>
+                                            </form>
+                                          </td>
+                                      </tr>
+                                      <% }); %>
+                            </tbody>
+                        </table>
+                        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+                    <script>
+    axios.get('/reservation-accomodation')
+      .then(response => {
+        const reservations = response.data;
+        const reservationsTable = document.querySelector('#reservations');
+        reservations.forEach(reservation => {
+          const row = reservationsTable.insertRow();
+          row.insertCell().textContent = reservation.username;
+          row.insertCell().textContent = reservation.title;
+          row.insertCell().textContent = reservation.price;
+          row.insertCell().textContent = reservation.date;
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  </script> -->
+
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('include/_footer') %> 
